@@ -1,9 +1,8 @@
 # Минимальный набор правил для IPTABLES
 
 ### Сохранение в файл и восстановление набора правил
-	iptables-save > ./iptables.rules
-
-	iptables-restore < ./iptables.rules
+	\# iptables-save > ./iptables.rules
+	\# iptables-restore < ./iptables.rules
 
 ### Установить iptables-persistent
 	- `apt install iptables-persistent netfilter-persistent`
