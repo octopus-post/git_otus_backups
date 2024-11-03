@@ -84,10 +84,9 @@ path.logs: /var/log/elasticsearch
 #----------------------- BEGIN SECURITY AUTO CONFIGURATION -----------------------
 #
 # The following settings, TLS certificates, and keys have been automatically      
-# generated to configure Elasticsearch security features on 21-10-2024 17:03:18
+# generated to configure Elasticsearch security features on 26-10-2024 15:14:51
 #
 # --------------------------------------------------------------------------------
-# добавлено для исправления запуска elasticsearch на неподерживаемых процессорах
 xpack.ml.enabled: false
 # Enable security features
 xpack.security.enabled: false
@@ -107,7 +106,7 @@ xpack.security.transport.ssl:
   truststore.path: certs/transport.p12
 # Create a new cluster with the current node only
 # Additional nodes can still join the cluster later
-cluster.initial_master_nodes: ["elk"]
+cluster.initial_master_nodes: ["ubuntu22-loggin"]
 
 # Allow HTTP API connections from anywhere
 # Connections are encrypted and require user authentication
