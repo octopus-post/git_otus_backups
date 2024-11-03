@@ -2,14 +2,14 @@
 (для Ubuntu 22.04, Ubuntu 24.04, ELK 8.9)
 
 ### На хосте:
-Скопировать каталоги с дистрибутивами и файлами конфигураций на сервер, скрипт *elk_copy_dst.sh*.
-	- каталог дистрибутивов 'dst_elk'
-	- каталог резервных копий конфигураций 'backup_elk'
+1. Скопировать каталоги с дистрибутивами и файлами конфигураций на сервер, скрипт *elk_copy_dst.sh*.
+	- каталог дистрибутивов *./dst_elk*
+	- каталог резервных копий конфигураций *./backup_elk*
 ### На сервере
-1. Копии файлов конфигураций разместить в корне каталога ./backup_elk/
-2. Каталог с дистрибутивами разместить в корне текущего каталога ./dst_elk/elk-8.9-deb/
+1. Каталог с дистрибутивами разместить в корне текущего каталога *./dst_elk/elk-8.9-deb/*
+2. Копии файлов конфигураций разместить в корне каталога *./backup_elk/*
 3. Выполнить установку пакетов:
-	- установка elasticsearch, скрипт 'elk_install_elasticsearch.sh'.
-	- установка kibana, скрипт 'elk_install_kibana.sh'.
-	- установка logstash, скрипт 'elk_install_logstash.sh'.
-	- установка filebeat, скрипт 'elk_install_filebeat.sh'.
+	- установка elasticsearch, скрипт *elk_install_elasticsearch.sh*.
+	- установка kibana, скрипт *elk_install_kibana.sh*.
+	- установка logstash, скрипт *elk_install_logstash.sh*.
+	- установка filebeat, скрипт *elk_install_filebeat.sh*.
