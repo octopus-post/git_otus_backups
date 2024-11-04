@@ -11,14 +11,6 @@ PUBKEY='/home/alex/.ssh/otus_rsa'
 
 SOURCEPATH=/etc/nginx
 rsync -e "$SSH -i $PUBKEY" --archive --verbose --progress --perms --owner --group  ${SERVERUSER}@${SERVERHOST}:${SOURCEPATH} ${DESTPATH}
-#rsync -e "$SSH -i $PUBKEY" --archive --verbose --progress --perms --owner --group  ${SERVERUSER}@${SERVERHOST}:${SOURCEPATH}sites-available/ ${DESTPATH}
 
 SOURCEPATH=/etc/apache2
 rsync -e "$SSH -i $PUBKEY" --archive --verbose --progress --perms --owner --group  ${SERVERUSER}@${SERVERHOST}:${SOURCEPATH} ${DESTPATH}
-
-#SOURCEPATH=/etc/logstash/
-#rsync -e "$SSH -i $PUBKEY" --verbose --progress --perms --owner --group  ${SERVERUSER}@${SERVERHOST}:${SOURCEPATH}logstash.yml ${DESTPATH}
-#rsync -e "$SSH -i $PUBKEY" --verbose --progress --perms --owner --group  ${SERVERUSER}@${SERVERHOST}:${SOURCEPATH}conf.d/logstash-nginx-es.conf ${DESTPATH}
-
-#SOURCEPATH=/etc/filebeat/
-#rsync -e "$SSH -i $PUBKEY" --verbose --progress --perms --owner --group  ${SERVERUSER}@${SERVERHOST}:${SOURCEPATH}filebeat.yml ${DESTPATH}
