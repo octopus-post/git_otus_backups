@@ -6,8 +6,11 @@
 ## Вариант 1 (с настроенным доступом root по сертификату)
 ### На сервере:
 1. В файл /root/.ssh/authorized_keys добавить строку с ключом
-2. В настройках ssh сервера в файле /etc/ssh/sshd_config указать значение параметра
-		`PermitRootLogin prohibit-password`
+2. В настройках ssh сервера в файле */etc/ssh/sshd_config* указать значение параметра
+> 		... 
+> 		PermitRootLogin prohibit-password
+>		...
+
 ### На хосте
 1. Выполнить скрипт *elk_backup_configs_rsync.sh*
 Параметры:
@@ -16,7 +19,7 @@
 
 ## Вариант 2 (без доступа удаленной авторизации root)
 ### На сервере:
-1. Выполнить скрипт elk_backup_configs.sh с правами root.
+1. Выполнить скрипт *elk_backup_configs.sh* с правами root.
 
 ### На хосте:
 1. Выполнить скрипт *elk_backup_configs_remote.sh*.
