@@ -12,8 +12,8 @@
 >		...
 
 ### На хосте
-1. Выполнить скрипт *elk_backup_configs_rsync.sh*
-Параметры:
+1. Выполнить скрипт *elk_backup_configs_rsync.sh* с правами root.
+	Параметры:
 	- SERVERHOST - ip адрес сервера
 	- PUBKEY - путь до файла ключа на хосте
 
