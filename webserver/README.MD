@@ -8,4 +8,4 @@
 >		...
 
 ### На хосте
-1. Выполнить скрипт *webserever_backup.sh*
+1. Выполнить скрипт *webserever_backup.sh* с правами root.
