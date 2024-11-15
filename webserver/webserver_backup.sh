@@ -14,3 +14,6 @@ rsync -e "$SSH -i $PUBKEY" --archive --verbose --progress --perms --owner --grou
 
 SOURCEPATH=/etc/apache2
 rsync -e "$SSH -i $PUBKEY" --archive --verbose --progress --perms --owner --group  ${SERVERUSER}@${SERVERHOST}:${SOURCEPATH} ${DESTPATH}
+
+SOURCEPATH=/var/www
+rsync -e "$SSH -i $PUBKEY" --archive --verbose --progress --perms --owner --group  ${SERVERUSER}@${SERVERHOST}:${SOURCEPATH} ${DESTPATH}

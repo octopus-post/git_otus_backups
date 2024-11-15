@@ -5,11 +5,16 @@
 1. Скопировать каталоги с дистрибутивами и файлами конфигураций на сервер, скрипт *elk_copy_dst.sh*.
 	- каталог дистрибутивов *./dst_elk*
 	- каталог резервных копий конфигураций *./backup_elk*
+
 ### На сервере
 1. Каталог с дистрибутивами разместить в корне текущего каталога *./dst_elk/elk-8.9-deb/*
 2. Копии файлов конфигураций разместить в корне каталога *./backup_elk/*
 3. Выполнить установку пакетов:
-	- установка elasticsearch, скрипт *elk_install_elasticsearch.sh*.
-	- установка kibana, скрипт *elk_install_kibana.sh*.
-	- установка logstash, скрипт *elk_install_logstash.sh*.
-	- установка filebeat, скрипт *elk_install_filebeat.sh*.
+
+|	пакет		|	скрипт							|
+|--------------	|----------------------------------	|
+|elasticsearch	|*elk_install_elasticsearch.sh*		|
+|kibana			|*elk_install_kibana.sh*			|
+|logstash		|*elk_install_logstash.sh*			|
+|filebeat		|*elk_install_filebeat.sh*			|
+

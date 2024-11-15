@@ -1,14 +1,14 @@
-# MySQL
-Структура каталогов:
-/etc/mysql/		# каталог глобальных настроек 
+# MySQL 8.0. Настройка репликации.
+### Файловая структура MySQL
+Структура каталога глобальных настроек 
 ```
 /etc/mysql/
 	├── conf.d
 	│   ├── mysql.cnf			# клиентские утилиты
-	│   └── mysqldump.cnf			#
+	│   └── mysqldump.cnf		#
 	├── debian.cnf
 	├── debian-start
-	├── my.cnf -> /etc/alternatives/my.cnf # для совместимости, не трогаем
+	├── my.cnf -> /etc/alternatives/my.cnf # для совместимости, не изменяем
 	├── my.cnf.fallback
 	├── mysql.cnf				# содержит два инклуда conf.d и mysql.conf.d
 	└── mysql.conf.d			# 
@@ -16,15 +16,47 @@
 	     └── mysqld.cnf			# ЗДЕСЬ НАСТРАИВАЕМ СЕРВЕР
 ```
 
-В */etc/mysql/mysql.conf.d/mysqld.conf* для репликации определяем параметры сокета
-```
- ...
- bind-address            = 0.0.0.0
- ...
-```
-Каталог БД и бинлогов
+#### Системные настройки:
+
+*/etc/mysql/mysql.conf.d/*
+
+*/etc/mysql/conf.d/*
+
+#### Каталог БД и бинлогов: 
 */var/lib/mysql/*
 
-# Резерное копирование всех таблиц БД
-1. Проверить наличие каталога *backups*
-2. Выполнить скрипт *mysql_createDBBackup.sh* с параметром <ИМЯ_БД>
+#### Пользовательские Настройки: 
+*~/.my.cnf*
+
+### Настройка конфигурации на сервере SOURCE:
+*/etc/mysql/mysql.conf.d/mysqld.conf* 
+```
+[mysqld]
+ ...
+ bind-address            = 0.0.0.0 	#сокет для репликации
+ ...
+server-id = 1
+log-bin = mysql-bin
+binlog_format = row
+gtid-mode = ON
+enforce-gtid-consistency	
+log-replica-updates					#для перевода source -> replica
+binlog_expire_logs_seconds	=2592000	#время хранения бинлогов
+```
+
+### Настройка конфигурации на сервере REPLICA:
+*/etc/mysql/mysql.conf.d/mysqld.conf* 
+```
+[mysqld]
+ ...
+server-id = 2
+log-bin = mysql-bin
+relay-log = relay-log-server			#лог для приёма изменений на source
+read-only = ON							#запрет изменений всем кроме root 
+gtid-mode = ON
+enforce-gtid-consistency	
+log-replica-updates					
+```
+
+
+

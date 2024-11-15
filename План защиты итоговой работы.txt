@@ -1,0 +1,69 @@
+План защиты итоговой работы.
+
+1. GitHub. 
+https://github.com/octopus-post/git_otus_backups
+
+******************************************************
+2. NGINX+Apache2+WordPress. Веб-сервер
+ssh -i /home/alex/.ssh/otus_rsa smith@192.168.122.201
+
+конфиг nginx: /etc/nginx/sites-enabled/default
+конфиг apache2: /etc/apache2/sites-available/000-default.conf
+
+screenshot_1_web-server.jpg
+
+******************************************************
+
+3. LOGS. Сервер мониторинга Prometheus + Grafana.
+ssh -i /home/alex/.ssh/otus_rsa smith@192.168.122.153
+
+prometheus
+http://192.168.122.153:9090
+grafana
+http://192.168.122.153:3000 
+
+	- метрики от локального хоста
+	- метрики от сервера ELK 192.168.122.232 через node_exporter
+	- метрики от сервера MYSQL-SOURCE 192.168.122.201 через node_exporter
+	- метрики от сервера MYSQL-REPLICA 192.168.122.211 через node_exporter
+
+/etc/prometheus/prometheus.yml
+В конфиг добавляем nodes:
+	192.168.122.232:9100
+	192.168.122.201:9100
+	192.168.122.211:9100
+
+stress-ng --cpu 2 --cpu-method matrixprod --metrics --timeout 60
+
+screenshot_2_monitoring.jpg
+
+******************************************************
+
+4. MYSQL. Резервное копирование DB и восстановление DB.
+ssh -i /home/alex/.ssh/otus_rsa smith@192.168.122.201
+ssh -i /home/alex/.ssh/otus_rsa smith@192.168.122.211
+
+	Сценарий создания резервной копии REPLICA и восстановление SOURCE:
+
+	- на сервере REPLICA создаем дамп БД 				./mysql_createDBBackup_full.sh
+	- на сервере REPLICA копируем бинлоги				./mysql_createDBBackup_inc.sh
+	- на сервере SOURCE запускаем копирование бэкапа из реплики	./copy_backup_from_replica.sh
+	- проверяем наличие файлов бэкапов				tree ./backups/
+	- выполняем восстановление из дампа				mysql> source <ИМЯ_ФАЙЛА_ДАМПА>.sql
+	- для восстановления данных до текущего состояния БД
+		выполняем восстановление данных из бинлогов		mysqlbinlog -d <ИМЯ_БД> | mysql
+		
+******************************************************
+5. ELK. Сервер логирования.
+
+ssh -i /home/alex/.ssh/otus_rsa smith@192.168.122.232
+
+elastic
+http://192.168.122.232:5601
+
+	- логи от локального сервера nginx
+	- логи от сервера 192.168.122.155
+	- логи от сервера 192.168.122.201
+
+
+
