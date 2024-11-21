@@ -10,4 +10,3 @@
 - elk_install_kibana.sh
 - elk_install_logstash.sh
 - elk_install_filebeat.sh
-- 

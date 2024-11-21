@@ -1,6 +1,6 @@
-#!/bin/bash/
+#!/bin/bash
 
-SOURCEPATH=./logs/
 DATABASE=$1
+SOURCEPATH=$2
 
-mysqlbinlog $(ls ${SOURCEPATH}) -d ${DATABASE} | mysql -u root
+mysql -uroot -p ${DATABASE} < ${SOURCEPATH}

@@ -5,7 +5,7 @@
 
 ## Вариант 1 (с настроенным доступом root по сертификату)
 
-### На хосте
+### На сервере BACKUPS:
 1. Выполнить скрипт *elk_backup_configs_rsync.sh* с правами root:
 
 		sudo bash ./elk_backup_configs_rsync.sh
@@ -18,7 +18,7 @@
 ### На сервере:
 1. Выполнить скрипт *elk_backup_configs.sh* с правами root для сохранений копий на localhost.
 
-### На хосте:
+### На сервере BACKUPS:
 1. Выполнить скрипт *elk_backup_configs_remote.sh*.
 2. Копии файлов расположены в каталоге *./backup_elk/$(date '+%Y%m%d-%H-%M-%S')*.
 

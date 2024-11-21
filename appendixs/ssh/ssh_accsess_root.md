@@ -11,3 +11,4 @@ PermitRootLogin prohibit-password
 ...
 ```
 
+3. Расположение private key *~./.ssh/otus_rsa*

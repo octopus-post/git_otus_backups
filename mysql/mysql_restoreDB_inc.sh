@@ -1,6 +1,8 @@
-#!/bin/bash/
+#!/bin/bash
 
-SOURCEPATH=./logs/
 DATABASE=$1
+SOURCEPATH=$2 #./backups/logs/
 
-mysqlbinlog  -d ${DATABASE} $(ls ${SOURCEPATH}) | mysql -u root
+BINLOGS_LIST=`echo "$(ls ${SOURCEPATH})" | xargs -I % echo ${SOURCEPATH}%`
+
+mysqlbinlog  -d ${DATABASE} ${BINLOGS_LIST} | mysql -u root

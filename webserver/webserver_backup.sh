@@ -2,11 +2,11 @@
 
 # Резервное копирование файлов конфигураций nginx, apache2
 SSH=/usr/bin/ssh
-DATE=$(date '+%Y%m%d-%H-%M-%S')
-DESTPATH=./backup_config/${DATE}/
-mkdir ${DESTPATH}
+DATE=$(date '+%Y%m%d')
+DESTPATH=./backups/${DATE}/web
+mkdir -p ${DESTPATH}
 SERVERUSER=root
-SERVERHOST=192.168.122.155
+SERVERHOST=192.168.122.201
 PUBKEY='/home/alex/.ssh/otus_rsa'
 
 SOURCEPATH=/etc/nginx
