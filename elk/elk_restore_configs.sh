@@ -1,4 +1,4 @@
-#!/bin/bash/
+#!/bin/bash
 
 # Восстановление файлов конфигураций elk
 SPATH=./backup_elk/

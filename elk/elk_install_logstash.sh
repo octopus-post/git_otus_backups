@@ -1,4 +1,4 @@
-#!/bin/bash/
+#!/bin/bash
 #############################################
 distribtpath=./dst_elk/elk-8.9-deb/
 configpath=./backup_elk

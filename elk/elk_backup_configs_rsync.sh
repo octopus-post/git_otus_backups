@@ -1,4 +1,4 @@
-#!/bin/bash/
+#!/bin/bash
 
 # Резервное копирование файлов конфигураций elk
 SSH=/usr/bin/ssh
@@ -7,7 +7,7 @@ DESTPATH=./backup_elk/${DATE}/
 mkdir ${DESTPATH}
 SERVERUSER=root
 SERVERHOST=192.168.122.232
-PUBKEY='/home/alex/.ssh/otus_rsa'
+PUBKEY='~/.ssh/otus_rsa'
 
 SOURCEPATH=/etc/elasticsearch/
 rsync -e "$SSH -i $PUBKEY" --verbose --progress --perms --owner --group  ${SERVERUSER}@${SERVERHOST}:${SOURCEPATH}elasticsearch.yml ${DESTPATH}

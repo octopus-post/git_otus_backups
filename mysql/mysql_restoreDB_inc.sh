@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DATABASE=$1
-SOURCEPATH=$2 #./backups/logs/
+SOURCEPATH=$2 
 
 BINLOGS_LIST=`echo "$(ls ${SOURCEPATH})" | xargs -I % echo ${SOURCEPATH}%`
 
