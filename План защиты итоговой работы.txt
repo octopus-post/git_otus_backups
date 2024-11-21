@@ -18,10 +18,48 @@ https://github.com/octopus-post/git_otus_backups
 screenshot_1_web-server.jpg
 
 Резервное копирование.
+webserver_backup.sh
 
 ******************************************************
 
-3. LOGS. Prometheus + Grafana. Сервер мониторинга
+3. MYSQL. Резервное копирование DB и восстановление DB.
+ssh -i /home/alex/.ssh/otus_rsa root@192.168.122.201
+ssh -i /home/alex/.ssh/otus_rsa root@192.168.122.211
+
+	Сценарий создания резервной копии REPLICA и восстановление SOURCE:
+
+	- на сервере REPLICA создаем дамп БД 				./mysql_createDBBackup_full.sh
+	- на сервере REPLICA копируем бинлоги				./mysql_createDBBackup_inc.sh
+	- на сервере SOURCE запускаем копирование бэкапа из реплики	./copy_backup_from_replica.sh
+	- проверяем наличие файлов бэкапов				tree ./backups/
+	- выполняем восстановление из дампа				mysql_restoreDB_full.sh
+									или 
+									mysql> source <ИМЯ_ФАЙЛА_ДАМПА>.sql
+	- для восстановления данных до текущего состояния БД
+		выполняем восстановление данных из бинлогов		mysql_restoreDB_inc.sh
+									или 
+									mysqlbinlog $(ls ./logs) -d <ИМЯ_БД> | mysql
+		
+******************************************************
+4. ELK. Сервер логирования.
+
+ssh -i /home/alex/.ssh/otus_rsa smith@192.168.122.232
+
+elastic
+http://192.168.122.232:5601
+
+	- логи от локального сервера
+	- логи от сервера 192.168.122.201
+
+screenshot-elk.jpg
+screenshot-elk2.jpg
+
+Резервное копирование 	elk_backup.md
+и восстановление 	elk_restore.md
+
+******************************************************
+
+5. LOGS. Prometheus + Grafana. Сервер мониторинга
 ssh -i /home/alex/.ssh/otus_rsa smith@192.168.122.153
 
 prometheus
@@ -44,41 +82,4 @@ http://192.168.122.153:3000
 stress-ng --cpu 2 --cpu-method matrixprod --metrics --timeout 60
 
 screenshot_2_monitoring.jpg
-
 ******************************************************
-
-4. MYSQL. Резервное копирование DB и восстановление DB.
-ssh -i /home/alex/.ssh/otus_rsa root@192.168.122.201
-ssh -i /home/alex/.ssh/otus_rsa root@192.168.122.211
-
-	Сценарий создания резервной копии REPLICA и восстановление SOURCE:
-
-	- на сервере REPLICA создаем дамп БД 				./mysql_createDBBackup_full.sh
-	- на сервере REPLICA копируем бинлоги				./mysql_createDBBackup_inc.sh
-	- на сервере SOURCE запускаем копирование бэкапа из реплики	./copy_backup_from_replica.sh
-	- проверяем наличие файлов бэкапов				tree ./backups/
-	- выполняем восстановление из дампа				mysql_restoreDB_full.sh
-									или 
-									mysql> source <ИМЯ_ФАЙЛА_ДАМПА>.sql
-	- для восстановления данных до текущего состояния БД
-		выполняем восстановление данных из бинлогов		mysql_restoreDB_inc.sh
-									или 
-									mysqlbinlog $(ls ./logs) -d <ИМЯ_БД> | mysql
-		
-******************************************************
-5. ELK. Сервер логирования.
-
-ssh -i /home/alex/.ssh/otus_rsa smith@192.168.122.232
-
-elastic
-http://192.168.122.232:5601
-
-	- логи от локального сервера
-	- логи от сервера 192.168.122.201
-
-screenshot-elk.jpg
-screenshot-elk2.jpg
-Резервное копирование и восстановление.
-
-******************************************************
-
