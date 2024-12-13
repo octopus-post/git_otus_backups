@@ -1,15 +1,23 @@
 # Минимальный набор правил для IPTABLES
 
-### Сохранение в файл и восстановление набора правил
-	# iptables-save > ./iptables.rules
-	# iptables-restore < ./iptables.rules
+>файл *iptables.rules*
 
-### Установить iptables-persistent
-	# apt install iptables-persistent netfilter-persistent
-	# netfilter-persistent save # сохранение правил
-	# netfilter-persistent start
+#### Сохранение в файл и восстановление набора правил
 
-### Установка политики по умолчанию
-	# iptables -P INPUT DROP
-	# iptables -P OUTPUT DROP
-	# iptables -P FORWARD DROP
+```bash
+iptables-save > ./iptables.rules
+iptables-restore < ./iptables.rules
+```
+
+#### Установить iptables-persistent
+```bash
+ apt install iptables-persistent netfilter-persistent
+ netfilter-persistent save # сохранение правил
+ netfilter-persistent start
+```
+#### Установка политики по умолчанию
+```bash
+ iptables -P INPUT DROP
+ iptables -P OUTPUT DROP
+ iptables -P FORWARD DROP
+```
