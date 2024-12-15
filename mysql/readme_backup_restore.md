@@ -99,13 +99,31 @@ mysql > RESET MASTER;
 ```
 ## Point-in-Time Recovery 
 
-восстановление на определенный момент времени
+### Восстановление данных по бинлогам:
+Просмотр содержимого бинлога для определения времени или положение событий, чтобы выбрать частичное содержимое журнала перед выполнением:
+#### Вариант 1:
+```bash
+# просмотр содержимого файла бинлога
+mysqlbinlog binlog_files | more
+# загрузка в БД всех данных из бинлогов
+mysqlbinlog binlog.000001 binlog.000002 | mysql -u root -p
+```
+#### Вариант 2:
+```bash
+# выгрузка данных из бинлога в один текстовый файл
+mysqlbinlog binlog.000001 >  /tmp/statements.sql
+mysqlbinlog binlog.000002 >> /tmp/statements.sql
+# после необходимого редактирования загрузка данных в БД
+mysql -u root -p < tmpfile
+# или другой вариант
+mysql -u root -p -e "source /tmp/statements.sql"
+```
+> [MySQL: 9.5.1 Point-in-Time Recovery Using Binary Log](https://dev.mysql.com/doc/refman/8.4/en/point-in-time-recovery-binlog.html)
 
-> Раздел в доработке
+### Восстановление данных на момент времени:
+```bash
+mysqlbinlog --stop-datetime="2020-03-11 20:08:00" binlog_file | mysql -u root -p
+```
+> [MySQL: 9.5.2 Point-in-Time Recovery Using Event Positions](https://dev.mysql.com/doc/refman/8.4/en/point-in-time-recovery-positions.html)
 
-
-9.5.1 Point-in-Time Recovery Using Binary Log
-
-9.5.2 Point-in-Time Recovery Using Event Positions
-
-[MySQL: https://dev.mysql.com/doc/refman/5.7/en/mysqldump.html](https://dev.mysql.com/doc/refman/5.7/en/mysqldump.html)
+[MySQL: https://dev.mysql.com/doc/refman/8.4/en/mysqldump.html](https://dev.mysql.com/doc/refman/8.4/en/mysqldump.html)
